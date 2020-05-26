@@ -15,11 +15,11 @@ const morganOption = (NODE_ENV === 'production')
 app.use(morgan(morganOption))
 app.use(helmet())
 app.use(cors())
+app.use('/api/plants', PlantsRouter);
+app.use('/api/reviews', ReviewsRouter);
 app.get('/', (req, res) => {
     res.send('Hello, world!')
     })
-app.use('/api/plants', PlantsRouter);
-app.use('/api/reviews', ReviewsRouter);
 
 app.use(function errorHandler(error, req, res, next) {
            let response
