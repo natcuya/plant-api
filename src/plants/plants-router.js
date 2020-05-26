@@ -15,6 +15,7 @@ const serializePlant = plant => ({
 
 PlantsRouter.route('/')
   .get( (req, res, next) => {
+    console.log('working')
     const knexInstance = req.app.get('db');
     PlantsService.getAllPlants(knexInstance)
       .then(plants => {
