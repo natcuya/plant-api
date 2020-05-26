@@ -3,7 +3,7 @@ const PlantsService = {
     getAllPlants(knex) {
         return knex
           .select('*')
-          .from('plants');
+          .from('plants')
       },
       insertPlant(knex, newPlant) {
         return knex
@@ -18,7 +18,11 @@ const PlantsService = {
   getById(knex, id) {
     return knex.from('plants').select('*').where('id', id).first()
   },
-
+  deletePlant(knex, id) {
+    return knex('plants')
+      .where({ id })
+      .delete()
+  },
   getReviewsForPlants(knex, id) {
     return knex
       .from('reviews')
@@ -28,11 +32,16 @@ const PlantsService = {
         'reviews.content',
       )
       .where('plants.id', id)
-      .innerJoin('plants', 'reviews.plantId', 'plants.id')
+      .innerJoin('plants', 'reviews.plantid', 'plants.id')
       .groupBy('reviews.id' )
   },
+updatePlant(knex, id, newPlantFields) {
+    return knex      
+      .from('plants')
+      .where({ id })
+      .update(newPlantFields)
+  }
 
-  
 }
 
 

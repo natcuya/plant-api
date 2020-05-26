@@ -37,7 +37,7 @@ VALUES(
 'String of Pearls','Easy','String of pearls is a beautiful, cascading succulent that will add that little quirk to any house. The plant grows fast and propagates easily and can grow both indoor and outdoor. If you are looking for a beautiful succulent to grow, Strings of pearls is a great choice.','https://www.growjoy.com/store/pc/catalog/string_of_pearls_plant_1352_detail.jpg'
 );
 
-INSERT INTO reviews (content, , rating) VALUES 
+INSERT INTO reviews (content, plantid, rating) VALUES 
   (
 'Love this Plant! So Easy to take of!', 1, 4
   ),
@@ -51,4 +51,4 @@ INSERT INTO reviews (content, , rating) VALUES
 'Not my Fave',4,5
   );
 
-  COMMIT;
+COMMIT;

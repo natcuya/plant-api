@@ -19,11 +19,21 @@ const ReviewsService = {
       .insert(newReview)
       .into('reviews')
       .returning('*')
-      .then(([review]) => review)
-      .then(review =>
-        ReviewsService.getById(knex, review.id)
-      )
+      .then(rows => {
+        return rows[0]
+      })
   },
+  deleteById(knex, id) {
+    return knex('reviews')
+      .where({ id })
+      .delete()
+  },
+  updatReview(knex, id, newReviewFields) {
+    return knex('reviews')
+      .where({ id })
+      .update(newReviewFields)
+  }
 }
+//deleteReview(){}
 
 module.exports = ReviewsService
