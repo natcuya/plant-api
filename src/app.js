@@ -8,7 +8,7 @@ const app = express();
 const PlantsRouter = require('./plants/plants-router');
 const ReviewsRouter = require('./reviews/reviews-router');
 
-const morganOption = (process.env.NODE_ENV === 'production')
+const morganOption = process.env.NODE_ENV === 'production'
   ? 'tiny'
   : 'common';
 
@@ -25,6 +25,7 @@ app.use(function errorHandler(error, req, res, next) {
            let response
            if (process.env.NODE_ENV=== 'production') {
              response = { error: { message: 'server error' } }
+             console.error(error)
            } else {
             console.error(error)
              response = { message: error.message, error }
