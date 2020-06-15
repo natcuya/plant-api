@@ -15,8 +15,8 @@ const morganOption = process.env.NODE_ENV === 'production'
 app.use(morgan(morganOption))
 app.use(helmet())
 app.use(cors())
-app.use('/api/plants', PlantsRouter);
-app.use('/api/reviews', ReviewsRouter);
+app.use(PlantsRouter);
+app.use(ReviewsRouter);
 app.get('/', (req, res) => {
     res.send('Hello, world!')
     })

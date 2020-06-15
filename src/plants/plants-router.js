@@ -13,7 +13,7 @@ const serializePlant = plant => ({
   img: plant.img
 });
 
-PlantsRouter.route('/')
+PlantsRouter.route('/plants')
   .get( (req, res, next) => {
     console.log('working')
     const knexInstance = req.app.get('db');
@@ -43,7 +43,7 @@ PlantsRouter.route('/')
       .catch(next);
   });
 
-PlantsRouter.route('/:plantid')
+PlantsRouter.route('/plants/:plantid')
   .all((req, res, next) => {
     const knexInstance = req.app.get('db');
     const plantid = req.params.plantid;

@@ -22,11 +22,11 @@ describe('reviews endpoint', function() {
 
   afterEach('clean up after each test', () => db.raw('TRUNCATE reviews, plants RESTART IDENTITY CASCADE'));
 
-  describe('GET /api/reviews', () => {
+  describe('GET /reviews', () => {
     context('given no reviews', () => {
       it('responds 200 and an empty array', () => {
         return supertest(app)
-          .get('/api/reviews')
+          .get('/reviews')
           .expect(200, [])
       })
     })
@@ -42,7 +42,7 @@ describe('reviews endpoint', function() {
       
       it('responds 200 and returns an array of reviews', () => {
         return supertest(app)
-          .get('/api/reviews')
+          .get('/reviews')
           .expect(200, testReviews);
       });
     });
@@ -60,7 +60,7 @@ describe('reviews endpoint', function() {
       });
       it('malicious review inserted, return sanitized review', () => {
         return supertest(app)
-          .get('/api/reviews')
+          .get('/reviews')
           .expect(200)
             .expect(res => {
             expect(res.body[0].rating).to.eql(expectedReview.rating)
@@ -70,12 +70,12 @@ describe('reviews endpoint', function() {
     });
   });
 
-  describe(`GET /api/reviews/:reviewid`, () => {
+  describe(`GET /reviews/:reviewid`, () => {
     context('given review with ID does not exist', () => {
       it('responds 404', () => {
         const reviewid = 123456
         return supertest(app)
-          .get(`/api/reviews/${reviewid}`)
+          .get(`/reviews/${reviewid}`)
           .expect(404, { error: { message: `Review doesn't exist` }});
       })
     })
@@ -94,7 +94,7 @@ describe('reviews endpoint', function() {
         const reviewid = 2
         const expectedReview = testReviews[reviewid - 1]
         return supertest(app)
-          .get(`/api/reviews/${reviewid}`)
+          .get(`/reviews/${reviewid}`)
           .expect(200, expectedReview);
       });
     });
@@ -112,7 +112,7 @@ describe('reviews endpoint', function() {
       });
       it('malicious review inserted, return sanitized review', () => {
         return supertest(app)
-          .get(`/api/reviews/${maliciousReview.id}`)
+          .get(`/reviews/${maliciousReview.id}`)
           .expect(200)
           .expect(res => {
             expect(res.body.content).to.eql(expectedReview.content)
@@ -122,12 +122,12 @@ describe('reviews endpoint', function() {
 
   });
 
-  describe(`DELETE /api/reviews/:reviewid`, () => {
+  describe(`DELETE /reviews/:reviewid`, () => {
     context('given review with ID does not exist', () => {
       it('responds 404', () => {
         const reviewid = 123456
         return supertest(app)
-        .delete(`/api/reviews/${reviewid}`)
+        .delete(`/reviews/${reviewid}`)
           .expect(404, { error: { message: `Review doesn't exist` }});
       })
     })
@@ -148,11 +148,11 @@ describe('reviews endpoint', function() {
         const idToRemove = 2;
         const expectedReview = testReviews.filter(review => review.id !== idToRemove);
         return supertest(app)
-          .delete(`/api/reviews/${idToRemove}`)
+          .delete(`/reviews/${idToRemove}`)
           .expect(204)
           .then(res => 
             supertest(app)
-          .get(`/api/reviews`)
+          .get(`/reviews`)
           .expect(expectedReview))
       });
     });

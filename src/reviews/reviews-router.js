@@ -13,7 +13,7 @@ const serializeReview = review => ({
     rating: review.rating,
     plantid: review.plantid
   });
-ReviewsRouter.route('/')
+ReviewsRouter.route('/reviews')
   .get( (req, res,next) => {
     const knexInstance = req.app.get('db');
     ReviewsService.getAllReviews(knexInstance)
@@ -43,7 +43,7 @@ ReviewsRouter.route('/')
       .catch(next)
   });
 
-ReviewsRouter.route('/:reviewid')
+ReviewsRouter.route('/reviews/:reviewid')
   .all( (req, res, next) => {
     const knexInstance = req.app.get('db');
     const reviewid = req.params.reviewid;

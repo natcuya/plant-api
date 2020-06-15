@@ -22,11 +22,11 @@ describe('plants endpoint', function() {
 
   afterEach('cleanup after each test', () => db.raw('TRUNCATE plants, reviews RESTART IDENTITY CASCADE'));
 
-  describe('GET /api/plants', () => {
+  describe('GET /plants', () => {
     context('given no plants', () => {
       it('responds 200 and an empty array', () => {
         return supertest(app)
-          .get('/api/plants')
+          .get('/plants')
           .expect(200, [])
       })
     })
@@ -38,7 +38,7 @@ describe('plants endpoint', function() {
       });
       it('responds 200 and returns array of plants', () => {
         return supertest(app)
-          .get('/api/plants')
+          .get('/plants')
           .expect(200, testPlants);
       });
     });
@@ -52,7 +52,7 @@ describe('plants endpoint', function() {
       });
       it('malicious plant inserted, return sanitized plant', () => {
         return supertest(app)
-          .get('/api/plants')
+          .get('/plants')
           .expect(200)
           .expect(res =>{
         expect(res.body[0].name).to.eql(expectedPlant.name)
