@@ -33,7 +33,7 @@ ReviewsRouter.route('/reviews')
           error: { message: `Missing '${key}' in request body` }
         })
 
-    ReviewsService.insertReviews(knexInstance, newReview)
+    ReviewsService.insertReview(knexInstance, newReview)
       .then(review => {
         console.log("created review:", review);
         res.status(201)
